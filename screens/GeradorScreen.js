@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import Slider from '@react-native-community/slider';
 
 export default function GeradorScreen({ navigation }) {
-  const [length, setLength] = useState('8');
+  const [length, setLength] = useState(8);
   const [senhas, setSenhas] = useState([]);
 
   const gerarSenha = () => {
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&';
     let novaSenha = '';
-    for (let i = 0; i < parseInt(length); i++) {
+    for (let i = 0; i < length; i++) {
       const randIndex = Math.floor(Math.random() * caracteres.length);
       novaSenha += caracteres[randIndex];
     }
@@ -19,14 +20,22 @@ export default function GeradorScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Gerador de Senhas</Text>
-      <TextInput
-        placeholder="Quantidade de caracteres"
+
+      <Text style={styles.label}>Comprimento da senha: {length} caracteres</Text>
+      <Slider
+        style={styles.slider}
+        minimumValue={4}
+        maximumValue={20}
+        step={1}
         value={length}
-        onChangeText={setLength}
-        keyboardType="numeric"
-        style={styles.input}
+        onValueChange={setLength}
+        minimumTrackTintColor="#1fb28a"
+        maximumTrackTintColor="#ccc"
+        thumbTintColor="#1fb28a"
       />
+
       <Button title="Gerar" onPress={gerarSenha} />
+
       <TouchableOpacity
         onPress={() => navigation.navigate('Senhas', { senhas })}
         style={styles.link}
@@ -49,11 +58,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  input: {
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 15,
-    borderRadius: 8,
+  label: {
+    textAlign: 'center',
+    marginBottom: 10,
+    fontSize: 16,
+  },
+  slider: {
+    width: '100%',
+    height: 40,
+    marginBottom: 20,
   },
   link: {
     marginTop: 20,
