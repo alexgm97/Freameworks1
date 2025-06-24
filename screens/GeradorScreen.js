@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import Slider from '@react-native-community/slider';
+import { SenhasContext } from '../SenhasContext';
 
 export default function GeradorScreen({ navigation }) {
   const [length, setLength] = useState(8);
-  const [senhas, setSenhas] = useState([]);
+  const { adicionarSenha } = useContext(SenhasContext);
 
   const gerarSenha = () => {
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&';
@@ -14,7 +15,7 @@ export default function GeradorScreen({ navigation }) {
       novaSenha += caracteres[randIndex];
     }
 
-    setSenhas([...senhas, novaSenha]);
+    adicionarSenha(novaSenha);
   };
 
   return (
@@ -37,7 +38,7 @@ export default function GeradorScreen({ navigation }) {
       <Button title="Gerar" onPress={gerarSenha} />
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('Senhas', { senhas })}
+        onPress={() => navigation.navigate('Senhas')}
         style={styles.link}
       >
         <Text style={styles.linkText}>Ver senhas geradas</Text>
@@ -47,33 +48,10 @@ export default function GeradorScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 22,
-    marginBottom: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  label: {
-    textAlign: 'center',
-    marginBottom: 10,
-    fontSize: 16,
-  },
-  slider: {
-    width: '100%',
-    height: 40,
-    marginBottom: 20,
-  },
-  link: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  linkText: {
-    color: 'blue',
-    textDecorationLine: 'underline',
-  },
+  container: { flex: 1, padding: 24, justifyContent: 'center' },
+  title: { fontSize: 22, marginBottom: 20, textAlign: 'center', fontWeight: 'bold' },
+  label: { textAlign: 'center', marginBottom: 10, fontSize: 16 },
+  slider: { width: '100%', height: 40, marginBottom: 20 },
+  link: { marginTop: 20, alignItems: 'center' },
+  linkText: { color: 'blue', textDecorationLine: 'underline' },
 });
