@@ -6,7 +6,6 @@ export const SenhasContext = createContext();
 export const SenhasProvider = ({ children }) => {
   const [senhas, setSenhas] = useState([]);
 
-  // Carregar senhas do armazenamento ao iniciar o app
   useEffect(() => {
     const carregarSenhas = async () => {
       try {
@@ -22,7 +21,6 @@ export const SenhasProvider = ({ children }) => {
     carregarSenhas();
   }, []);
 
-  // Salvar senhas no AsyncStorage sempre que a lista mudar
   useEffect(() => {
     const salvarSenhas = async () => {
       try {
@@ -39,8 +37,27 @@ export const SenhasProvider = ({ children }) => {
     setSenhas((prevSenhas) => [novaSenha, ...prevSenhas]);
   };
 
+  const limparSenhas = async () => {
+    try {
+      await AsyncStorage.removeItem('senhas');
+      setSenhas([]);
+    } catch (error) {
+      console.error('Erro ao limpar senhas:', error);
+    }
+  };
+
+  const removerSenha = async (index) => {
+    try {
+      const novasSenhas = [...senhas];
+      novasSenhas.splice(index, 1);
+      setSenhas(novasSenhas);
+    } catch (error) {
+      console.error('Erro ao remover senha:', error);
+    }
+  };
+
   return (
-    <SenhasContext.Provider value={{ senhas, adicionarSenha }}>
+    <SenhasContext.Provider value={{ senhas, adicionarSenha, limparSenhas, removerSenha }}>
       {children}
     </SenhasContext.Provider>
   );
