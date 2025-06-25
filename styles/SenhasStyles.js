@@ -1,6 +1,7 @@
 
 import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
+import { Dimensions } from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -24,7 +25,7 @@ export default StyleSheet.create({
     fontSize: width * 0.04,
   },
   clearButton: {
-    marginTop: 20,
+    marginTop: height * 0.05, // 5% da altura da tela
     alignSelf: 'center',
     backgroundColor: 'red',
     padding: 10,

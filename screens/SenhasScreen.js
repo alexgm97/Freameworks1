@@ -57,7 +57,7 @@ export default function SenhasScreen() {
         {senhas.length > 0 && (
           <View style={styles.button}>
             <TouchableOpacity onPress={confirmarLimparTodas} style={{
-              backgroundColor: '#1fb28a',
+              backgroundColor: '#b21f1f',
               paddingVertical: 12,
               borderRadius: 8,
               alignItems: 'center',
@@ -96,7 +96,7 @@ export default function SenhasScreen() {
                 <Pressable
                   onPress={executarRemocao}
                   style={{
-                    backgroundColor: '#1fb28a',
+                    backgroundColor: '#b21f1f',
                     paddingVertical: 12,
                     paddingHorizontal: 20,
                     borderRadius: 8,

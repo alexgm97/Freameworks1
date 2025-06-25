@@ -10,6 +10,8 @@ import SenhasScreen from './screens/SenhasScreen';
 
 import { SenhasProvider } from './SenhasContext';
 import { AuthProvider } from './AuthContext';
+import ClimaScreen from './screens/ClimaScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -18,12 +20,17 @@ export default function App() {
     <AuthProvider>
       <SenhasProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Navigator initialRouteName="Login">
+            {/* Removida a tela Home, Login agora é inicial */}
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}  // Oculta o header
+            />
             <Stack.Screen name="Menu" component={MenuScreen} />
             <Stack.Screen name="Gerador" component={GeradorScreen} />
             <Stack.Screen name="Senhas" component={SenhasScreen} />
+            <Stack.Screen name="Clima" component={ClimaScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </SenhasProvider>

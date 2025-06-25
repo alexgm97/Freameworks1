@@ -21,6 +21,12 @@ export default function MenuScreen({ navigation }) {
           <View style={styles.button}>
             <Button title="Ver Senhas Geradas" onPress={() => navigation.navigate('Senhas')} />
           </View>
+
+          <View style={styles.spacer} />
+
+          <View style={styles.button}>
+            <Button title="Clima" onPress={() => navigation.navigate('Clima')} />
+          </View>
         </View>
 
         <TouchableOpacity

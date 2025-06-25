@@ -26,7 +26,7 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.formBox}>
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>Bem vindo ao Gerador de Senhas!</Text>
         <TextInput
           placeholder="Usuário"
           style={styles.input}
