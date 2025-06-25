@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
+import styles from '../styles/MenuStyles';
 import { AuthContext } from '../AuthContext';
 
 export default function MenuScreen({ navigation }) {
@@ -7,35 +8,31 @@ export default function MenuScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Menu</Text>
-      <Button title="Gerar Senhas" onPress={() => navigation.navigate('Gerador')} />
-      <View style={{ height: 20 }} />
-      <Button title="Ver Senhas Geradas" onPress={() => navigation.navigate('Senhas')} />
-      <TouchableOpacity
-        onPress={() => {
-          logout();
-          navigation.navigate('Home');
-        }}
-        style={styles.logoutButton}
-      >
-        <Text style={styles.logoutText}>Sair</Text>
-      </TouchableOpacity>
+      <View style={styles.contentBox}>
+        <Text style={styles.title}>Menu</Text>
+
+        <View style={styles.whiteBox}>
+          <View style={styles.button}>
+            <Button title="Gerar Senhas" onPress={() => navigation.navigate('Gerador')} />
+          </View>
+
+          <View style={styles.spacer} />
+
+          <View style={styles.button}>
+            <Button title="Ver Senhas Geradas" onPress={() => navigation.navigate('Senhas')} />
+          </View>
+        </View>
+
+        <TouchableOpacity
+          onPress={() => {
+            logout();
+            navigation.navigate('Home');
+          }}
+          style={styles.logoutButton}
+        >
+          <Text style={styles.logoutText}>Sair</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 24, justifyContent: 'center' },
-  title: { fontSize: 24, marginBottom: 30, fontWeight: 'bold', textAlign: 'center' },
-  logoutButton: {
-    marginTop: 40,
-    alignSelf: 'center',
-    padding: 10,
-    backgroundColor: 'red',
-    borderRadius: 8,
-  },
-  logoutText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
