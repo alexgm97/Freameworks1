@@ -6,90 +6,71 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
-  Pressable
+  Pressable,
 } from 'react-native';
 import { SenhasContext } from '../SenhasContext';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function SenhasScreen() {
-  const { senhas, limparSenhas, removerSenha } = useContext(SenhasContext);
-
-  const [modalVisivel, setModalVisivel] = useState(false);
+  const { senhas, removerSenha, limparTodas } = useContext(SenhasContext);
+  const [modalConfirmar, setModalConfirmar] = useState(false);
   const [modalIndex, setModalIndex] = useState(null);
-  const [modalTipo, setModalTipo] = useState(''); // 'remover' ou 'limpar'
 
-  const abrirModalRemover = (index) => {
-    setModalTipo('remover');
+  const confirmarRemover = (index) => {
     setModalIndex(index);
-    setModalVisivel(true);
+    setModalConfirmar(true);
   };
 
-  const abrirModalLimparTudo = () => {
-    setModalTipo('limpar');
-    setModalVisivel(true);
-  };
-
-  const confirmarAcao = () => {
-    if (modalTipo === 'remover' && modalIndex !== null) {
-      removerSenha(modalIndex);
-    } else if (modalTipo === 'limpar') {
-      limparSenhas();
-    }
-    setModalVisivel(false);
+  const confirmarLimparTodas = () => {
     setModalIndex(null);
+    setModalConfirmar(true);
+  };
+
+  const executarRemocao = () => {
+    if (modalIndex === null) {
+      limparTodas();
+    } else {
+      removerSenha(modalIndex);
+    }
+    setModalConfirmar(false);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Senhas Geradas</Text>
-
-      {senhas.length > 0 && (
-        <TouchableOpacity onPress={abrirModalLimparTudo} style={styles.clearButton}>
-          <Text style={styles.clearText}>Limpar todas as senhas</Text>
-        </TouchableOpacity>
-      )}
-
       <FlatList
         data={senhas}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <View style={styles.itemRow}>
-            <Text style={styles.itemText}>{item}</Text>
-            <TouchableOpacity onPress={() => abrirModalRemover(index)}>
-              <Ionicons name="trash" size={24} color="red" />
+            <Text style={styles.item}>{item}</Text>
+            <TouchableOpacity onPress={() => confirmarRemover(index)}>
+              <MaterialIcons name="delete" size={24} color="red" />
             </TouchableOpacity>
           </View>
         )}
-        ListEmptyComponent={<Text style={{ textAlign: 'center', marginTop: 20 }}>Nenhuma senha gerada ainda.</Text>}
       />
+      {senhas.length > 0 && (
+        <TouchableOpacity
+          style={styles.clearButton}
+          onPress={confirmarLimparTodas}
+        >
+          <Text style={styles.clearText}>Apagar todas</Text>
+        </TouchableOpacity>
+      )}
 
-      {/* Modal de confirmação */}
-      <Modal
-        transparent
-        animationType="fade"
-        visible={modalVisivel}
-        onRequestClose={() => setModalVisivel(false)}
-      >
+      <Modal visible={modalConfirmar} transparent animationType="fade">
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>
-              {modalTipo === 'remover'
-                ? 'Deseja remover esta senha?'
-                : 'Deseja apagar todas as senhas?'}
+          <View style={styles.modalBox}>
+            <Text style={styles.modalText}>
+              Tem certeza que deseja apagar {modalIndex === null ? 'todas as senhas' : 'essa senha'}?
             </Text>
-
-            <View style={styles.modalButtons}>
-              <Pressable
-                style={[styles.modalButton, { backgroundColor: '#ccc' }]}
-                onPress={() => setModalVisivel(false)}
-              >
-                <Text>Cancelar</Text>
+            <View style={styles.modalActions}>
+              <Pressable onPress={executarRemocao} style={styles.modalBtn}>
+                <Text style={styles.modalBtnText}>Sim</Text>
               </Pressable>
-              <Pressable
-                style={[styles.modalButton, { backgroundColor: 'red' }]}
-                onPress={confirmarAcao}
-              >
-                <Text style={{ color: '#fff' }}>Confirmar</Text>
+              <Pressable onPress={() => setModalConfirmar(false)} style={styles.modalBtn}>
+                <Text style={styles.modalBtnText}>Cancelar</Text>
               </Pressable>
             </View>
           </View>
@@ -105,46 +86,45 @@ const styles = StyleSheet.create({
   itemRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 12,
+    paddingVertical: 8,
     borderBottomWidth: 1,
     borderColor: '#ccc',
   },
-  itemText: { fontSize: 16 },
+  item: { fontSize: 16 },
   clearButton: {
-    marginBottom: 10,
+    marginTop: 20,
     alignSelf: 'center',
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 8,
   },
   clearText: {
-    color: 'red',
+    color: 'white',
     fontWeight: 'bold',
-    textDecorationLine: 'underline',
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: 'rgba(0,0,0,0.3)',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modalContent: {
+  modalBox: {
     backgroundColor: '#fff',
     padding: 24,
-    borderRadius: 10,
+    borderRadius: 8,
     width: '80%',
     alignItems: 'center',
-    gap: 16,
   },
-  modalTitle: {
-    fontSize: 18,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  modalButtons: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  modalButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+  modalText: { fontSize: 16, textAlign: 'center', marginBottom: 20 },
+  modalActions: { flexDirection: 'row', gap: 16 },
+  modalBtn: {
+    backgroundColor: '#2196F3',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     borderRadius: 6,
+  },
+  modalBtnText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });

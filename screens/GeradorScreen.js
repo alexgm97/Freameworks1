@@ -2,12 +2,10 @@ import React, { useState, useContext } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { SenhasContext } from '../SenhasContext';
-import { AuthContext } from '../AuthContext'; // ⬅️ Importa o contexto de autenticação
 
 export default function GeradorScreen({ navigation }) {
   const [length, setLength] = useState(8);
   const { adicionarSenha } = useContext(SenhasContext);
-  const { logout } = useContext(AuthContext); // ⬅️ Usa o logout
 
   const gerarSenha = () => {
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&';
@@ -20,15 +18,9 @@ export default function GeradorScreen({ navigation }) {
     adicionarSenha(novaSenha);
   };
 
-  const handleLogout = () => {
-    logout(); // Desloga
-    navigation.navigate('Home'); // Volta pra Home
-  };
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Gerador de Senhas</Text>
-
       <Text style={styles.label}>Comprimento da senha: {length} caracteres</Text>
       <Slider
         style={styles.slider}
@@ -41,18 +33,12 @@ export default function GeradorScreen({ navigation }) {
         maximumTrackTintColor="#ccc"
         thumbTintColor="#1fb28a"
       />
-
       <Button title="Gerar" onPress={gerarSenha} />
-
       <TouchableOpacity
         onPress={() => navigation.navigate('Senhas')}
         style={styles.link}
       >
         <Text style={styles.linkText}>Ver senhas geradas</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-        <Text style={styles.logoutText}>Sair</Text>
       </TouchableOpacity>
     </View>
   );
@@ -65,15 +51,4 @@ const styles = StyleSheet.create({
   slider: { width: '100%', height: 40, marginBottom: 20 },
   link: { marginTop: 20, alignItems: 'center' },
   linkText: { color: 'blue', textDecorationLine: 'underline' },
-  logoutButton: {
-    marginTop: 30,
-    alignSelf: 'center',
-    padding: 10,
-    backgroundColor: 'red',
-    borderRadius: 8,
-  },
-  logoutText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
 });

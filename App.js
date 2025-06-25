@@ -4,11 +4,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
+import MenuScreen from './screens/MenuScreen';
 import GeradorScreen from './screens/GeradorScreen';
 import SenhasScreen from './screens/SenhasScreen';
 
 import { SenhasProvider } from './SenhasContext';
-import { AuthProvider } from './AuthContext'; // ⬅️ NOVO
+import { AuthProvider } from './AuthContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Menu" component={MenuScreen} />
             <Stack.Screen name="Gerador" component={GeradorScreen} />
             <Stack.Screen name="Senhas" component={SenhasScreen} />
           </Stack.Navigator>

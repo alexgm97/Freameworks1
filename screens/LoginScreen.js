@@ -16,7 +16,7 @@ export default function LoginScreen({ navigation }) {
     const sucesso = login(username, password);
 
     if (sucesso) {
-      navigation.navigate('Gerador');
+      navigation.replace('Menu');
     } else {
       Alert.alert('Erro', 'Usuário ou senha inválidos');
     }
