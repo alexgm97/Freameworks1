@@ -1,15 +1,13 @@
-
-import { StyleSheet, Dimensions } from 'react-native';
-const { width, height } = Dimensions.get('window');
-import { Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: width * 0.06,
+    padding: 24,
+    backgroundColor: '#fff',
   },
   title: {
-    fontSize: width * 0.065,
+    fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
@@ -17,23 +15,27 @@ export default StyleSheet.create({
   itemRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 8,
+    alignItems: 'center',
+    paddingVertical: 10,
     borderBottomWidth: 1,
     borderColor: '#ccc',
   },
   item: {
-    fontSize: width * 0.04,
+    fontSize: 16,
+    flex: 1,
   },
-  clearButton: {
-    marginTop: height * 0.05, // 5% da altura da tela
+  redButton: {
+    marginTop: 40, // espaçamento aumentado
     alignSelf: 'center',
     backgroundColor: 'red',
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 24,
     borderRadius: 8,
   },
-  clearText: {
+  redButtonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: 16,
   },
   modalOverlay: {
     flex: 1,
@@ -49,7 +51,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   modalText: {
-    fontSize: width * 0.04,
+    fontSize: 16,
     textAlign: 'center',
     marginBottom: 20,
   },
