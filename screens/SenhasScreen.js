@@ -19,10 +19,10 @@ export default function SenhasScreen() {
 
   const confirmarExclusao = () => {
     if (modalIndividualIndex !== null) {
-      removerSenha(modalIndividualIndex);
+      removerSenha(modalIndividualIndex);  // Remove senha específica
       setModalIndividualIndex(null);
     } else {
-      limparSenhas();
+      limparSenhas();  // Remove todas as senhas
     }
     setModalVisible(false);
   };
@@ -72,7 +72,10 @@ export default function SenhasScreen() {
       />
 
       {senhas.length > 0 && (
-        <TouchableOpacity style={styles.redButton} onPress={() => abrirModal()}>
+        <TouchableOpacity
+          style={styles.redButton}
+          onPress={() => abrirModal()}
+        >
           <Text style={styles.redButtonText}>Apagar todas</Text>
         </TouchableOpacity>
       )}
@@ -86,9 +89,13 @@ export default function SenhasScreen() {
             </Text>
 
             <View style={styles.modalActions}>
-              <Pressable style={[styles.modalBtn, { backgroundColor: 'red' }]} onPress={confirmarExclusao}>
+              <Pressable
+                style={[styles.modalBtn, { backgroundColor: 'red' }]}
+                onPress={confirmarExclusao}
+              >
                 <Text style={styles.modalBtnText}>Sim</Text>
               </Pressable>
+
               <Pressable style={styles.modalBtn} onPress={cancelar}>
                 <Text style={styles.modalBtnText}>Cancelar</Text>
               </Pressable>
