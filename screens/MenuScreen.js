@@ -30,14 +30,18 @@ export default function MenuScreen({ navigation }) {
         </View>
 
         <TouchableOpacity
-          onPress={() => {
-            logout();
-            navigation.navigate('Home');
-          }}
-          style={styles.logoutButton}
-        >
-          <Text style={styles.logoutText}>Sair</Text>
+            onPress={() => {
+              logout();
+              navigation.reset({
+                index: 0,
+                routes: [{ name: 'Login' }],
+              });
+            }}
+            style={styles.logoutButton}
+          >
+            <Text style={styles.logoutText}>Sair</Text>
         </TouchableOpacity>
+
       </View>
     </View>
   );
