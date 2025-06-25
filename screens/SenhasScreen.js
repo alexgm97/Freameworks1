@@ -17,28 +17,32 @@ export default function SenhasScreen() {
   const [modalIndividualIndex, setModalIndividualIndex] = useState(null);
   const [mostrarSenhas, setMostrarSenhas] = useState(true);
 
+  // Alternar visibilidade das senhas (com ícone de olho)
+  const alternarVisibilidade = () => {
+    setMostrarSenhas(!mostrarSenhas);
+  };
+
+  // Abre o modal para confirmação
+  const abrirModal = (index = null) => {
+    setModalIndividualIndex(index); // null = todas, index = uma
+    setModalVisible(true);
+  };
+
+  // Confirma a exclusão
   const confirmarExclusao = () => {
     if (modalIndividualIndex !== null) {
-      removerSenha(modalIndividualIndex);  // Remove senha específica
+      removerSenha(modalIndividualIndex); // Remove uma
       setModalIndividualIndex(null);
     } else {
-      limparSenhas();  // Remove todas as senhas
+      limparSenhas(); // Remove todas
     }
     setModalVisible(false);
   };
 
-  const abrirModal = (index = null) => {
-    setModalIndividualIndex(index);
-    setModalVisible(true);
-  };
-
+  // Fecha o modal
   const cancelar = () => {
     setModalIndividualIndex(null);
     setModalVisible(false);
-  };
-
-  const alternarVisibilidade = () => {
-    setMostrarSenhas(!mostrarSenhas);
   };
 
   return (
@@ -53,7 +57,6 @@ export default function SenhasScreen() {
             <Text style={styles.item}>
               {mostrarSenhas ? item : '••••••••'}
             </Text>
-
             <View style={{ flexDirection: 'row', gap: 12 }}>
               <TouchableOpacity onPress={alternarVisibilidade}>
                 {mostrarSenhas ? (
@@ -74,7 +77,7 @@ export default function SenhasScreen() {
       {senhas.length > 0 && (
         <TouchableOpacity
           style={styles.redButton}
-          onPress={() => abrirModal()}
+          onPress={() => abrirModal()} // <-- Apaga todas
         >
           <Text style={styles.redButtonText}>Apagar todas</Text>
         </TouchableOpacity>
@@ -95,7 +98,6 @@ export default function SenhasScreen() {
               >
                 <Text style={styles.modalBtnText}>Sim</Text>
               </Pressable>
-
               <Pressable style={styles.modalBtn} onPress={cancelar}>
                 <Text style={styles.modalBtnText}>Cancelar</Text>
               </Pressable>
