@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { AuthContext } from '../AuthContext';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useContext(AuthContext);
 
   const handleLogin = () => {
-    if (username && password) {
+    if (!username || !password) {
+      Alert.alert('Erro', 'Preencha todos os campos');
+      return;
+    }
+
+    const sucesso = login(username, password);
+
+    if (sucesso) {
       navigation.navigate('Gerador');
     } else {
-      alert('Preencha todos os campos');
+      Alert.alert('Erro', 'Usuário ou senha inválidos');
     }
   };
 
@@ -21,6 +30,7 @@ export default function LoginScreen({ navigation }) {
         style={styles.input}
         value={username}
         onChangeText={setUsername}
+        autoCapitalize="none"
       />
       <TextInput
         placeholder="Senha"
