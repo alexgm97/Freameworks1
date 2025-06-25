@@ -21,11 +21,11 @@ export default function App() {
       <SenhasProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Login">
-            {/* Removida a tela Home, Login agora é inicial */}
+            {}
             <Stack.Screen
               name="Login"
               component={LoginScreen}
-              options={{ headerShown: false }}  // Oculta o header
+              options={{ headerShown: false }}  
             />
             <Stack.Screen name="Menu" component={MenuScreen} />
             <Stack.Screen name="Gerador" component={GeradorScreen} />

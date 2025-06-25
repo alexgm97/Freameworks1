@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 import Slider from '@react-native-community/slider';
-import styles from '../styles/LoginStyles';  // reaproveitando estilos do login
+import styles from '../styles/LoginStyles';  
 import { SenhasContext } from '../SenhasContext';
 
 export default function GeradorScreen({ navigation }) {

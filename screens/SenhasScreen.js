@@ -17,29 +17,29 @@ export default function SenhasScreen() {
   const [modalIndividualIndex, setModalIndividualIndex] = useState(null);
   const [mostrarSenhas, setMostrarSenhas] = useState(true);
 
-  // Alternar visibilidade das senhas (com ícone de olho)
+  
   const alternarVisibilidade = () => {
     setMostrarSenhas(!mostrarSenhas);
   };
 
-  // Abre o modal para confirmação
+  
   const abrirModal = (index = null) => {
-    setModalIndividualIndex(index); // null = todas, index = uma
+    setModalIndividualIndex(index); 
     setModalVisible(true);
   };
 
-  // Confirma a exclusão
+  
   const confirmarExclusao = () => {
     if (modalIndividualIndex !== null) {
-      removerSenha(modalIndividualIndex); // Remove uma
+      removerSenha(modalIndividualIndex); 
       setModalIndividualIndex(null);
     } else {
-      limparSenhas(); // Remove todas
+      limparSenhas(); 
     }
     setModalVisible(false);
   };
 
-  // Fecha o modal
+  
   const cancelar = () => {
     setModalIndividualIndex(null);
     setModalVisible(false);
@@ -77,7 +77,7 @@ export default function SenhasScreen() {
       {senhas.length > 0 && (
         <TouchableOpacity
           style={styles.redButton}
-          onPress={() => abrirModal()} // <-- Apaga todas
+          onPress={() => abrirModal()} 
         >
           <Text style={styles.redButtonText}>Apagar todas</Text>
         </TouchableOpacity>

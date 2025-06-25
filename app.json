@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "4ae91964-fb57-4bbc-9136-b5290593b35f"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.alexmacedo97.senhageneratorapp",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.alexmacedo97.senhageneratorapp"
+    }
+  }
+}

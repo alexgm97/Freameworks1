@@ -25,7 +25,7 @@ export default StyleSheet.create({
     flex: 1,
   },
   redButton: {
-    marginTop: 40, // espaçamento aumentado
+    marginTop: 40, 
     alignSelf: 'center',
     backgroundColor: 'red',
     paddingVertical: 10,
